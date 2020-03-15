@@ -88,6 +88,10 @@ public class TronarkoActivity extends AppCompatActivity {
 
     private TextView feriado;
 
+    private TextView tv_ettos;
+    private TextView tv_unnos;
+    private TextView tv_quattus;
+
 
 
     final Handler myHandler = new Handler();
@@ -167,6 +171,11 @@ public class TronarkoActivity extends AppCompatActivity {
         s50=(TextView) findViewById(R.id.s50);
 
         feriado=(TextView) findViewById(R.id.feriado);
+
+        tv_ettos=(TextView) findViewById(R.id.ettos);
+        tv_unnos=(TextView) findViewById(R.id.unnos);
+        tv_quattus=(TextView) findViewById(R.id.quattus);
+
 
         Timer myTimer = new Timer();
         myTimer.schedule(new TimerTask() {
@@ -300,12 +309,12 @@ private void superarko_limpar(){
         Tronarko T=new Tronarko();
 
         Eventum E = new Eventum();
-       ArrayList<String> eventos =  E.eventos(T.getTozte());
+       ArrayList<String> eventos =  E.Eventos(T.getTozte());
 
        int i =0;
        int t=eventos.size();
        while(i<t){
-           sferiado=eventos.get(i);
+           sferiado=eventos.get(i) ;
            i+=1;
        }
 
@@ -322,29 +331,31 @@ private void superarko_limpar(){
 
             Tronarko T=new Tronarko();
 
-            Tronarko.Tron TronC = T.getTronAgora();
+
+            Tronarko.Tozte TozteC = T.getTozte();
+            Tronarko.Hazde HazdeC = T.getHazde();
 
             tv_arco.setText(T.getTronAgora().getTexto());
-            tv_superarko.setText("Superarko : " + TronC.Superarko_nome());
-            tv_hiperarko.setText(TronC.Hiperarko_nome());
+            tv_superarko.setText("Superarko : " + TozteC.Superarko_nome());
+            tv_hiperarko.setText(TozteC.Hiperarko_nome());
             tv_periarko.setText("Periarko : " +T.getHazde().PeriarkoCompleto());
             tv_modarko.setText("Modarko : " +T.getHazde().ModarkoCompleto());
 
-            tv_signo.setText("Signo : " +TronC.Signo_nome());
+            tv_signo.setText("Signo : " +TozteC.Signo_nome());
 
 
-            tv_sizarko.setText("Hizarko : " +TronC.Hizarko_nome() + "  -  " + String.valueOf(TronC.Hizarko_Superarko() ));
+            tv_sizarko.setText("Hizarko : " +TozteC.Hizarko_nome() + "  -  " + String.valueOf(TozteC.Hizarko_Duracao() ));
 
-            if (TronC.Periarko().toString().equals("AD")==true){
+            if (HazdeC.Periarko().toString().equals("AD")==true){
                 iv_imagem.setImageResource(R.mipmap.ic_ad);
             }
-            if (TronC.Periarko().toString().equals("ED")==true){
+            if (HazdeC.Periarko().toString().equals("ED")==true){
                 iv_imagem.setImageResource(R.mipmap.ic_ed);
             }
-            if (TronC.Periarko().toString().equals("OD")==true){
+            if (HazdeC.Periarko().toString().equals("OD")==true){
                 iv_imagem.setImageResource(R.mipmap.ic_od);
             }
-            if (TronC.Periarko().toString().equals("UD")==true){
+            if (HazdeC.Periarko().toString().equals("UD")==true){
                 iv_imagem.setImageResource(R.mipmap.ic_ud);
             }
 
@@ -360,6 +371,119 @@ private void superarko_limpar(){
                 superarko_marcar(agora_superarko);
 
             }
+
+
+
+
+            String Complexos = "";
+
+            //Complexos Comp = new Complexos();
+
+           // Complexos += "\n\n Complexos\n\n";
+           // Complexos += "Complexos Quattetto : " + Comp.Quattetto(T.getTozte()).getTexto() + "\n" ;
+                     //  Complexos +=  "Complexo Quattuno : " + Comp.Quattuno(T.getTozte()).getTexto()+ "\n" ;
+// Complexos +=  "Complexo Quattuno : " + Comp.Quattuno(T.getTozte()).getTexto()+ "\n" ;
+            //Complexos +=  "Complexo Ettuno : "+ Comp.Ettuno(T.getTozte()).getTexto()+ "\n" ;
+         //   Complexos +=  "Complexo Escuridao : "+ Comp.EscuridaoTotal(T.getTozte()).getTexto()+ "\n\n" ;
+
+
+            String Eventos = "";
+
+            Eventum E = new Eventum();
+            ArrayList<String> Tags;
+            int tam = 0;
+            int i=0;
+
+
+            Eventos +="\n Próximos Eventos \n\n";
+
+            Tags = E.ProximoArkoTags(T.getTozte());
+
+            tam = Tags.size();
+            i = 0;
+
+            while (i < tam) {
+                String C = Tags.get(i);
+
+                Eventos +=C + "\n";
+
+                i += 1;
+            }
+
+            Eventos +="\n Próximos Super Eventos \n\n";
+
+            Tags = E.ProximosSuperArkoTags(T.getTozte());
+
+            tam = Tags.size();
+            i = 0;
+
+            while (i < tam) {
+                String C = Tags.get(i);
+
+                Eventos +=C + "\n";
+
+                i += 1;
+            }
+
+
+           // Ettos EttoC = new Ettos();
+          //  Unnos UnnoC = new Unnos();
+          //  Quattus QuattuC = new Quattus();
+
+            String Satelites = "";
+
+                    //   Complexos +=  "Complexo Quattuno : " + Comp.Quattuno(T.getTozte()).getTexto()+ "\n" ;
+// Satelites +="Ettos : " + EttoC.getFase(T.getTozte()) + "\n";
+           // Satelites +="Unnos : " + UnnoC.getFase(T.getTozte()) + "\n";
+          //  Satelites +="Quattus : " + QuattuC.getFase(T.getTozte()) + "\n\n";
+
+
+
+            String Hoje = "";
+
+            Hoje += "\n ---- HOJE ---- \n\n";
+
+
+            Hoje += Satelites;
+
+
+            Tags = E.Eventos(T.getTozte());
+
+            tam = Tags.size();
+            i = 0;
+
+            while (i < tam) {
+                String C = Tags.get(i);
+
+               Hoje +=C +"\n";
+
+                i += 1;
+            }
+
+
+
+            Tags = E.SuperEventos(T.getTozte());
+
+            tam = Tags.size();
+            i = 0;
+
+            while (i < tam) {
+                String C = Tags.get(i);
+
+                Hoje +=C +"\n";
+
+                i += 1;
+            }
+
+
+
+
+            tv_ettos.setText(Hoje + Complexos + Eventos );
+
+            tv_unnos.setText("");
+            tv_quattus.setText("");
+
+
         }
     };
 
